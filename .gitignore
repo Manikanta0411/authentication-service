@@ -1,0 +1,37 @@
+# Dependency directories
+node_modules/
+
+# Environment variables
+.env
+
+# Compiled TypeScript output
+dist/
+
+# Log files
+logs/
+
+# Editor-specific files
+.idea/
+.vscode/
+
+# OS-specific files
+Thumbs.db
+.DS_Store
+
+# Compiled binaries or archives
+*.exe
+*.dll
+*.so
+*.dylib
+*.zip
+*.tar.gz
+
+# Ignore .env files with sensitive information
+.env.local
+.env.*.local
+
+# Ignore coverage reports
+coverage/
+.DS_Store
+.DS_Store
+.DS_Store

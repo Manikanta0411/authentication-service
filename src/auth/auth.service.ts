@@ -25,6 +25,7 @@ export class AuthService {
     const user = new User();
     user.username = createUserDto.username;
     user.password = await bcrypt.hash(createUserDto.password, 10);
+    user.role = createUserDto.role;
 
     await this.userRepository.save(user);
     return { message: 'User registered successfully' };
@@ -37,6 +38,7 @@ export class AuthService {
 
     const user = await this.userRepository.findOne(options);
     if (!user) throw new NotFoundException('User not found');
+    console.log('User details: ', user)
 
     const passwordMatch = await bcrypt.compare(
       credentials.password,
@@ -44,7 +46,7 @@ export class AuthService {
     );
     if (!passwordMatch) throw new UnauthorizedException('Invalid credentials');
 
-    const payload = { username: user.username, sub: user.id };
+    const payload = { username: user.username, sub: user.id, role: user.role };
     const token = this.jwtService.sign(payload);
     const refreshToken =
       await this.refreshTokenService.createRefreshToken(user);
@@ -67,7 +69,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid refresh token');
     }
 
-    const accessToken = this.jwtService.sign({ sub: refreshData.user.id });
+    const accessToken = this.jwtService.sign({ sub: refreshData.user.id, role: refreshData.user.role });
     return accessToken;
   }
 }

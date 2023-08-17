@@ -46,6 +46,7 @@ export class RefreshTokenService {
   calculateRefreshTokenExpiration(): Date {
     const now = new Date();
     const expirationTime = now.getTime() + 30 * 24 * 60 * 60 * 1000; // 30 days
-    return new Date(expirationTime);
+    const expirationDate = new Date(expirationTime);
+    return expirationDate;
   }
 }
